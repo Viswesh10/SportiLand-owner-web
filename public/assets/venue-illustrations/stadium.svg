@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Illustrative outdoor sports stadium artwork">
+ <defs><linearGradient id="sky" x2="0" y2="1"><stop stop-color="#d9e5dd"/><stop offset="1" stop-color="#f4e6d0"/></linearGradient><linearGradient id="field" x2="0" y2="1"><stop stop-color="#57975c"/><stop offset="1" stop-color="#245638"/></linearGradient></defs>
+ <rect width="1200" height="720" fill="url(#sky)"/>
+ <path d="M0 210 L1200 190 V430 L0 470Z" fill="#d9d4c4"/><path d="M0 238 L1200 218 V400 L0 440Z" fill="#b9bca9"/>
+ <g stroke="#f7f3e9" stroke-width="9" opacity=".9"><path d="M0 275 L1200 255 M0 326 L1200 306 M0 377 L1200 357"/></g>
+ <path d="M0 450 L1200 414 V720 H0Z" fill="url(#field)"/>
+ <path d="M0 540 L1200 500 M0 650 L1200 613" stroke="#f0efdd" stroke-width="8" opacity=".8"/>
+ <path d="M600 435 L600 720 M360 443 L300 720 M840 428 L910 720" stroke="#f0efdd" stroke-width="6" fill="none" opacity=".8"/>
+ <path d="M110 720 L300 462 L900 430 L1120 720Z" fill="none" stroke="#d95f45" stroke-width="24"/>
+ <g stroke="#233d32" stroke-width="15" opacity=".65"><path d="M150 145 V360 M420 135 V350 M690 125 V340 M960 115 V330"/></g>
+ <g fill="#f3efd9"><circle cx="150" cy="118" r="26"/><circle cx="420" cy="108" r="26"/><circle cx="690" cy="98" r="26"/><circle cx="960" cy="88" r="26"/></g>
+ <rect width="1200" height="720" fill="#173d2e" opacity=".08"/>
+</svg>

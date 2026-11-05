@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Illustrative cricket turf artwork">
+ <defs><linearGradient id="top" x2="0" y2="1"><stop stop-color="#e4ece4"/><stop offset="1" stop-color="#c4d4c6"/></linearGradient><linearGradient id="grass" x2="0" y2="1"><stop stop-color="#438b55"/><stop offset="1" stop-color="#174a32"/></linearGradient></defs>
+ <rect width="1200" height="720" fill="url(#top)"/><path d="M0 210 L1200 185 V720 H0Z" fill="url(#grass)"/>
+ <path d="M440 235 L750 225 L890 720 L300 720Z" fill="#caa979"/>
+ <path d="M490 255 L720 248 L790 720 L395 720Z" fill="#cfb388"/>
+ <g stroke="#e9e6d7" stroke-width="9" fill="none"><path d="M450 274 L736 267 M424 660 L820 645 M483 280 L414 650 M705 271 L810 646"/><path d="M555 350 L670 347 M532 445 L694 441 M510 540 L720 535"/></g>
+ <g stroke="#172f27" stroke-width="10" opacity=".75"><path d="M25 135 V420 M160 132 V400 M295 129 V380 M430 126 V360 M565 123 V340 M700 120 V320 M835 117 V300 M970 114 V280 M1105 111 V260"/><path d="M0 135 L1200 110 M0 195 L1200 170 M0 255 L1200 230"/></g>
+ <g stroke="#f5f0df" stroke-width="8" fill="none"><path d="M0 450 L1200 420"/><path d="M0 575 L1200 552"/></g>
+ <g fill="#e4d8b5" stroke="#5c4632" stroke-width="5"><path d="M580 320 V385 M600 317 V382 M620 314 V379" stroke="#f1e8d0" stroke-width="10"/><path d="M574 322 H626"/></g>
+ <path d="M0 0 H1200 V70 L0 105Z" fill="#183d2e" opacity=".12"/>
+</svg>

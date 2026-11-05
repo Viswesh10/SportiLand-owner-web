@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Illustrative multisport arena artwork">
+ <defs><linearGradient id="wall" x2="0" y2="1"><stop stop-color="#e9eee3"/><stop offset="1" stop-color="#a0b6a1"/></linearGradient><linearGradient id="court" x2="0" y2="1"><stop stop-color="#508963"/><stop offset="1" stop-color="#17452f"/></linearGradient></defs>
+ <rect width="1200" height="720" fill="url(#wall)"/><path d="M0 190 L1200 155 V720 H0Z" fill="#223f32"/>
+ <path d="M0 240 L1200 205 V720 H0Z" fill="url(#court)"/>
+ <path d="M0 240 L180 234 L255 720 H0Z M390 226 L555 221 L635 720 H460Z M770 215 L935 210 L1015 720 H845Z" fill="#67a66b" opacity=".86"/>
+ <g stroke="#f0f1e0" stroke-width="7" fill="none" opacity=".95"><path d="M0 370 L1200 325 M0 540 L1200 505 M600 350 L600 720"/><ellipse cx="600" cy="480" rx="160" ry="65"/><path d="M130 360 L180 720 M1060 330 L1110 720"/></g>
+ <g stroke="#193a2d" stroke-width="10" opacity=".72"><path d="M40 100 V340 M200 95 V335 M360 90 V329 M520 85 V323 M680 80 V317 M840 75 V311 M1000 70 V305 M1160 65 V299"/><path d="M0 110 L1200 75 M0 170 L1200 135"/></g>
+ <g fill="#fff7d7"><circle cx="120" cy="58" r="21"/><circle cx="1080" cy="42" r="21"/><circle cx="600" cy="32" r="18"/></g>
+ <rect width="1200" height="720" fill="#183d2e" opacity=".10"/>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Illustrative indoor badminton court artwork">
+ <defs><linearGradient id="wall" x2="0" y2="1"><stop stop-color="#dbe8df"/><stop offset="1" stop-color="#83a99b"/></linearGradient><linearGradient id="floor" x2="0" y2="1"><stop stop-color="#c8ae84"/><stop offset="1" stop-color="#896a4c"/></linearGradient><linearGradient id="dark" x2="1" y2="1"><stop stop-color="#173d37"/><stop offset="1" stop-color="#0c2928"/></linearGradient></defs>
+ <rect width="1200" height="720" fill="#edf0e3"/><path d="M0 0 H1200 V460 L0 510Z" fill="url(#wall)"/>
+ <g stroke="#456e68" stroke-width="9" opacity=".7"><path d="M90 0 L90 476 M290 0 L290 468 M490 0 L490 460 M690 0 L690 452 M890 0 L890 444 M1090 0 L1090 436"/><path d="M0 135 L1200 110 M0 270 L1200 235"/></g>
+ <path d="M0 510 L1200 430 L1200 720 L0 720Z" fill="url(#floor)"/>
+ <path d="M155 540 L1035 482 L1170 700 L18 720Z" fill="#287568" stroke="#edf1df" stroke-width="8"/>
+ <g stroke="#f5f1df" stroke-width="7" fill="none"><path d="M400 524 L480 720 M790 500 L860 720 M90 636 L1100 606 M320 575 L345 720 M875 515 L970 720"/><path d="M110 626 L1080 578"/></g>
+ <path d="M90 530 L1075 469" stroke="#f4f0df" stroke-width="4"/><path d="M600 500 L620 720" stroke="#e8ead9" stroke-width="5"/>
+ <g stroke="#f7f0d9" stroke-width="5" opacity=".8"><path d="M90 65 L1110 55 M180 0 L260 480 M1000 0 L930 465"/></g>
+ <g fill="#fff7d5"><circle cx="170" cy="80" r="18"/><circle cx="1030" cy="70" r="18"/><circle cx="600" cy="48" r="15"/></g>
+ <rect width="1200" height="720" fill="url(#dark)" opacity=".08"/>
+</svg>

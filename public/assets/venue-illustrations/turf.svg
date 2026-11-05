@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-label="Illustrative football turf artwork">
+ <defs>
+  <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#dcebe5"/><stop offset="1" stop-color="#f4edda"/></linearGradient>
+  <linearGradient id="grass" x2="0" y2="1"><stop stop-color="#4d8a5a"/><stop offset="1" stop-color="#174c37"/></linearGradient>
+  <linearGradient id="shade" x2="1" y2="1"><stop stop-color="#183d2e" stop-opacity=".04"/><stop offset="1" stop-color="#071f17" stop-opacity=".52"/></linearGradient>
+ </defs>
+ <rect width="1200" height="720" fill="url(#sky)"/>
+ <path d="M0 185 L1200 155 L1200 720 L0 720Z" fill="#254b38"/>
+ <path d="M0 260 L1200 218 L1200 720 L0 720Z" fill="url(#grass)"/>
+ <path d="M0 260 L170 254 L250 720 L0 720Z" fill="#5b9c63"/>
+ <path d="M330 248 L490 242 L570 720 L410 720Z" fill="#5b9c63"/>
+ <path d="M650 237 L810 231 L890 720 L730 720Z" fill="#5b9c63"/>
+ <path d="M970 226 L1130 220 L1200 650 L1200 720 L1050 720Z" fill="#5b9c63"/>
+ <g stroke="#e8f0db" stroke-width="7" fill="none" opacity=".9"><path d="M600 261 L600 720"/><path d="M120 392 L1080 357"/><ellipse cx="600" cy="440" rx="150" ry="65"/><path d="M0 300 L1200 260"/><path d="M0 600 L1200 575"/></g>
+ <g stroke="#183d2e" stroke-width="10" opacity=".82"><path d="M30 175 V430 M180 171 V414 M330 167 V398 M480 163 V382 M630 159 V366 M780 155 V350 M930 151 V334 M1080 147 V318"/><path d="M0 175 L1200 145 M0 235 L1200 203"/></g>
+ <g stroke="#d5f06b" stroke-width="7" opacity=".8"><path d="M80 82 L80 236 M60 83 H100 M1040 78 L1040 202 M1020 79 H1060"/></g>
+ <rect width="1200" height="720" fill="url(#shade)"/>
+ <circle cx="1015" cy="75" r="72" fill="#fff9df" opacity=".72"/>
+</svg>
