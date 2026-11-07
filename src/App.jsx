@@ -7,7 +7,7 @@ import {
   EyeOff, LayoutDashboard, LogOut, MapPin, Menu, Plus, Save, Search,
   ShieldCheck, TrendingUp, Users, Wallet, X, Ban, Building2, CircleHelp,
   Trophy, UserRound, ClipboardList, Images, Upload, Trash2, Gamepad2, Video, FileImage, Camera,
-  Mountain, Flag, UserCheck, Ticket, QrCode, ScanLine, RotateCcw, AlertTriangle,
+  Mountain, Flag, UserCheck, Ticket, QrCode, ScanLine, RotateCcw, AlertTriangle, FileText,
 } from 'lucide-react'
 
 const STORE = {
@@ -166,7 +166,7 @@ const defaultTurf = {
 const demoOwner = {
   id: 'owner-demo',
   ownerName: 'Demo Owner',
-  email: 'owner@fieldfinder.demo',
+  email: 'owner@sportiland.demo',
   contactNumber: '9876543210',
   password: 'Owner@123',
   createdAt: today(),
@@ -643,7 +643,7 @@ export default function App() {
     .sort((a, b) => b.date.localeCompare(a.date) || b.start.localeCompare(a.start))
 
   const ownerLabel = account.ownerName || 'Turf Owner'
-  const currentNav = navItems.find(item => item.id === page)?.label || 'Overview'
+  const currentNav = page === 'terms' ? 'Terms & Conditions' : (navItems.find(item => item.id === page)?.label || 'Overview')
 
   return (
     <div className="owner-app">
@@ -651,7 +651,7 @@ export default function App() {
         <button className="mobile-menu" onClick={() => setMobileNav(value => !value)} aria-label="Open navigation"><Menu size={20} /></button>
         <button className="brand" onClick={() => setPage('overview')}>
           <span className="brand-mark"><Trophy size={20} /></span>
-          <span>fieldfinder<span className="brand-dot">.</span><small>OWNER WORKSPACE</small></span>
+          <span>SportiLand<span className="brand-dot">.</span><small>OWNER WORKSPACE</small></span>
         </button>
         <div className="topbar-actions">
           <span className="environment-pill"><i /> {session?.backend ? 'SHARED PUBLISHING' : 'DEMO WORKSPACE'}</span>
@@ -667,6 +667,7 @@ export default function App() {
               <li><button className="dropdown-item" type="button" onClick={() => setPage('profile')}>Turf profile</button></li>
               <li><button className="dropdown-item" type="button" onClick={() => setPage('showcase')}>Showcase & games</button></li>
               <li><button className="dropdown-item" type="button" onClick={() => setPage('events')}>Events & treks</button></li>
+              <li><button className="dropdown-item" type="button" onClick={() => { setPage('terms'); window.scrollTo(0, 0) }}><FileText size={15} className="me-2" />Terms & Conditions</button></li>
               <li><hr className="dropdown-divider" /></li>
               <li><button className="dropdown-item text-danger" type="button" onClick={logout}>Sign out</button></li>
             </ul>
@@ -695,12 +696,12 @@ export default function App() {
           <div className="sidebar-bottom">
             <div className="help-card"><CircleHelp size={18} /><strong>Need a hand?</strong><p>{session?.backend ? 'Your published games and media are shared with customers.' : 'Sample data is stored in this browser. Connect a backend owner account to publish content.'}</p><button onClick={() => setPage('showcase')}>Manage showcase <ArrowRight size={14} /></button></div>
             <button className="nav-link logout-link" onClick={logout}><LogOut size={18} /><span>Log out</span></button>
-            <div className="sidebar-foot">FIELDFINDER · OWNER WORKSPACE</div>
+            <div className="sidebar-foot">SportiLand · OWNER WORKSPACE</div>
           </div>
         </aside>
 
         <main className="main-content">
-          <div className="breadcrumb"><span>FieldFinder</span><span>/</span><strong>{currentNav}</strong></div>
+          <div className="breadcrumb"><span>SportiLand</span><span>/</span><strong>{currentNav}</strong></div>
           {page === 'overview' && <OwnerAnnouncementMarquee turf={turf} />}
           {page === 'overview' && <Overview
             account={account} turf={turf} bookings={myBookings} slots={mySlots}
@@ -738,13 +739,34 @@ export default function App() {
             onChange={setProfileForm} onSave={saveProfile}
             onNotify={notify}
           />}
-          <footer className="main-footer"><span>© {new Date().getFullYear()} FieldFinder</span><span>Owner workspace · {session?.backend ? 'Shared content publishing active' : 'Browser demo data'}</span></footer>
+          {page === 'terms' && <OwnerTermsConditionsPage />}
+          <footer className="main-footer"><span>© {new Date().getFullYear()} SportiLand</span><span>Owner workspace · {session?.backend ? 'Shared content publishing active' : 'Browser demo data'}</span></footer>
         </main>
       </div>
       {walkInSlot && <WalkInBookingModal slot={walkInSlot} form={walkInForm} setForm={setWalkInForm} error={walkInError} onClose={() => setWalkInSlot(null)} onSubmit={saveWalkInBooking} />}
       {toast && <div className="toast"><CheckCircle2 size={17} />{toast}</div>}
     </div>
   )
+}
+
+function OwnerTermsConditionsPage() {
+  return <div className="owner-terms-page" id="terms-and-conditions">
+    <PageHeading eyebrow="SPORTILAND POLICIES" title="Terms & Conditions" description="The rain and weather refund rules applied to customer bookings at SportiLand venues." />
+    <article className="owner-terms-card">
+      <span className="owner-terms-kicker">SPORTILAND · BOOKING POLICY</span>
+      <h2>Rain & Weather Refund Policy</h2>
+      <p>At SportiLand, we understand that weather conditions can sometimes affect scheduled sports activities. To ensure fairness for both customers and turf owners, the following refund policy applies to bookings affected by rainfall.</p>
+      <section><h3>1. Non-Roofed Turfs</h3><ul><li>If it rains during the scheduled booking and the non-roofed turf becomes unsuitable for playing, the customer will be eligible for a <strong>50% refund of the booking amount</strong>.</li><li>The remaining 50% will be retained to cover operational costs and the reservation of the facility.</li><li>Refund eligibility applies only when rainfall genuinely affects the usability of the turf.</li></ul></section>
+      <section><h3>2. Roofed / Covered Turfs</h3><ul><li>Bookings made at roofed or covered turfs are <strong>not eligible for a rain-related refund</strong>.</li><li>Since these facilities provide protection from rainfall, bookings will remain valid even during rainy weather.</li><li>Customers are expected to proceed with their scheduled booking unless the turf owner declares the facility unsafe or unavailable.</li></ul></section>
+      <section><h3>3. Rain Before the Booking Time</h3><ul><li>If rain occurs before the scheduled booking, the turf owner will assess the ground conditions.</li><li>If a non-roofed turf is declared unsuitable for playing, the customer will be eligible for a 50% refund.</li><li>If the turf remains playable, the booking will proceed as scheduled.</li></ul></section>
+      <section><h3>4. Rain During the Booking</h3><ul><li>If rainfall begins during an active booking and makes a non-roofed turf unplayable, the customer will be eligible for a 50% refund of the total booking amount.</li><li>If the rain does not affect the playing conditions, no refund will be applicable.</li></ul></section>
+      <section><h3>5. Refund Processing</h3><ul><li>Eligible refunds will be processed through the original payment method wherever possible.</li><li>Refund processing time may vary depending on the payment provider or bank.</li><li>Customers may be required to contact customer support or the turf owner to initiate a refund request.</li></ul></section>
+      <section><h3>6. Verification and Final Decision</h3><ul><li>Rain-related refund claims must be verified by the respective turf owner or SportiLand administration.</li><li>Refunds will only be approved when weather conditions genuinely prevent the customer from using the facility.</li><li>SportiLand reserves the right to review and resolve refund disputes based on the booking details and confirmation from the turf owner.</li></ul></section>
+      <section><h3>7. Customer Agreement</h3><p>By completing a booking on SportiLand, customers acknowledge and agree to this Rain & Weather Refund Policy.</p></section>
+      <aside className="owner-terms-important"><strong>Important:</strong> A 50% refund applies to eligible rain-affected bookings at non-roofed turfs only. Roofed or covered turf bookings are not eligible for refunds solely due to rainfall.</aside>
+      <p className="owner-terms-footnote">Venue roofing information is shown in booking details. Where the roof type has not been confirmed by the venue, SportiLand displays “Not confirmed” and the rain-refund percentage remains pending confirmation.</p>
+    </article>
+  </div>
 }
 
 function AuthScreen({ accounts, onAccounts, onSignIn }) {
@@ -841,7 +863,7 @@ function AuthScreen({ accounts, onAccounts, onSignIn }) {
   return (
     <div className="auth-screen" data-auth-mode={mode}>
       <div className="auth-left">
-        <div className="auth-brand"><span className="brand-mark"><Trophy size={22} /></span><span>fieldfinder<span className="brand-dot">.</span><small>OWNER WORKSPACE</small></span></div>
+        <div className="auth-brand"><span className="brand-mark"><Trophy size={22} /></span><span>SportiLand<span className="brand-dot">.</span><small>OWNER WORKSPACE</small></span></div>
         <div className="auth-intro">
           <span className="eyebrow">BUILT FOR TURF OPERATORS</span>
           <h1>Your venue.<br /><em>Your schedule.</em><br />Your business.</h1>
@@ -851,8 +873,13 @@ function AuthScreen({ accounts, onAccounts, onSignIn }) {
             <span><Users size={17} /> Customer booking management</span>
             <span><Activity size={17} /> Revenue overview</span>
           </div>
+          <div className="auth-sports-scene" aria-label="Sports facilities and game-day atmosphere">
+            <div className="auth-sports-photo auth-sports-photo-main"><img src="/assets/venues/golazo-turf.webp" alt="Football turf" /><span>GAME DAY</span></div>
+            <div className="auth-sports-photo auth-sports-photo-side"><img src="/assets/venues/cricket-box.jpg" alt="Indoor cricket facility" /><span>PLAY MORE</span></div>
+            <div className="auth-sports-orbit" aria-hidden="true"><Trophy size={22}/></div>
+          </div>
         </div>
-        <div className="auth-left-foot">FIELDFINDER · TURF OWNER PORTAL</div>
+        <div className="auth-left-foot">SportiLand · TURF OWNER PORTAL</div>
       </div>
       <div className="auth-right">
         <div className="auth-card">
@@ -908,7 +935,7 @@ function BookingQrScanner({ onCheckIn, checkedInPasses, turf }) {
     const timer = window.setTimeout(() => {
       if (!active) return
       try {
-        scanner = new Html5QrcodeScanner('fieldfinder-booking-qr-reader', {
+        scanner = new Html5QrcodeScanner('sportiland-booking-qr-reader', {
           fps: 10,
           qrbox: { width: 230, height: 230 },
           aspectRatio: 1,
@@ -918,12 +945,12 @@ function BookingQrScanner({ onCheckIn, checkedInPasses, turf }) {
           if (!active) return
           try {
             const data = JSON.parse(decodedText)
-            validateFieldFinderPass(data)
+            validateSportiLandPass(data)
             setPass(data)
             setError('')
             scanner?.clear().catch(() => {})
           } catch (scanError) {
-            setError(scanError.message || 'This QR code is not a recognised FieldFinder booking pass.')
+            setError(scanError.message || 'This QR code is not a recognised SportiLand booking pass.')
           }
         }, () => {})
       } catch (scannerError) {
@@ -941,11 +968,11 @@ function BookingQrScanner({ onCheckIn, checkedInPasses, turf }) {
     event.preventDefault()
     try {
       const data = JSON.parse(manualValue)
-      validateFieldFinderPass(data)
+      validateSportiLandPass(data)
       setPass(data)
       setError('')
     } catch (scanError) {
-      setError(scanError.message || 'Paste the complete FieldFinder QR data.')
+      setError(scanError.message || 'Paste the complete SportiLand QR data.')
     }
   }
 
@@ -957,15 +984,15 @@ function BookingQrScanner({ onCheckIn, checkedInPasses, turf }) {
   }
 
   return <>
-    <PageHeading eyebrow="VENUE CHECK-IN" title="Scan booking QR" description="Read a customer's FieldFinder pass before they enter the court." action={<span className="count-pill"><ScanLine size={14}/> QR check-in</span>} />
+    <PageHeading eyebrow="VENUE CHECK-IN" title="Scan booking QR" description="Read a customer's SportiLand pass before they enter the court." action={<span className="count-pill"><ScanLine size={14}/> QR check-in</span>} />
     <div className="ff-scanner-demo-alert"><AlertTriangle size={17}/><span><strong>Frontend demo only</strong><small>This screen reads the QR data in the browser. It cannot confirm a live booking, payment or owner allocation until a shared backend is connected.</small></span></div>
     <div className="ff-scanner-layout">
       <section className="panel ff-scanner-panel">
         <div className="panel-heading"><div><h3><QrCode size={18}/> Booking pass scanner</h3><p>Allow camera access and hold the QR code inside the frame.</p></div><span className="ff-scanner-live-dot">CAMERA</span></div>
-        {!pass && <div id="fieldfinder-booking-qr-reader" className="ff-qr-reader" />}
+        {!pass && <div id="sportiland-booking-qr-reader" className="ff-qr-reader" />}
         {!pass && <div className="ff-scanner-help"><Camera size={16}/><span>Camera access works on localhost or an HTTPS deployment. On a phone, use the rear camera for clearer scans.</span></div>}
         {error && <div className="ff-scanner-error">{error}</div>}
-        <div className="ff-scanner-manual"><strong>Test without a camera</strong><p>Paste the QR contents from a FieldFinder pass to preview the owner verification screen.</p><form onSubmit={readManualPass}><textarea value={manualValue} onChange={event => setManualValue(event.target.value)} rows={3} placeholder='Paste QR JSON data here…'/><button type="submit" className="primary-button"><ScanLine size={15}/> Read pass data</button></form></div>
+        <div className="ff-scanner-manual"><strong>Test without a camera</strong><p>Paste the QR contents from a SportiLand pass to preview the owner verification screen.</p><form onSubmit={readManualPass}><textarea value={manualValue} onChange={event => setManualValue(event.target.value)} rows={3} placeholder='Paste QR JSON data here…'/><button type="submit" className="primary-button"><ScanLine size={15}/> Read pass data</button></form></div>
       </section>
       <section className="panel ff-pass-result-panel">
         {pass ? <>
@@ -994,8 +1021,8 @@ function BookingQrScanner({ onCheckIn, checkedInPasses, turf }) {
   </>
 }
 
-function validateFieldFinderPass(data) {
-  if (!data || data.type !== 'FIELDFINDER_BOOKING_PASS' || data.version !== 1) throw new Error('This is not a FieldFinder booking QR.')
+function validateSportiLandPass(data) {
+  if (!data || data.type !== 'SPORTILAND_BOOKING_PASS' || data.version !== 1) throw new Error('This is not a SportiLand booking QR.')
   // Keep these field names aligned with Customer V8 BookingPassModal.
   const required = ['bookingId', 'token', 'customer', 'venue', 'sport', 'date', 'time', 'durationHours', 'amount', 'paymentStatus', 'bookingStatus']
   const missing = required.filter(key => data[key] === undefined || data[key] === null || data[key] === '')
@@ -1403,7 +1430,7 @@ function ShowcasePage({ turf, sports, media, loading, error, live, onSaveGames, 
   const submitUpload = async event => { event.preventDefault(); if (!files.length) return; await onUpload(files, caption); setFiles([]); setCaption(''); event.target.reset() }
   return <>
     <PageHeading eyebrow="CUSTOMER DISCOVERY" title="Showcase & games" description={`Manage the games and venue media customers see on the ${turf?.name || 'your turf'} listing.`} />
-    <section className="panel showcase-status-panel"><div><span className="live-indicator"><i />{live ? 'SHARED PUBLISHING CONNECTED' : 'LOCAL DEMO MODE'}</span><h3>{live ? 'Your changes can reach customer listings' : 'Your showcase is saved in this demo workspace'}</h3><p>{live ? 'Changes are stored by the shared FieldFinder backend. Customer pages refresh published venue information periodically.' : 'Game selections and event details are saved in this browser for now. Cross-app publishing can be connected when the customer event section is updated.'}</p></div><span className="showcase-lock"><ShieldCheck size={22}/></span></section>
+    <section className="panel showcase-status-panel"><div><span className="live-indicator"><i />{live ? 'SHARED PUBLISHING CONNECTED' : 'LOCAL DEMO MODE'}</span><h3>{live ? 'Your changes can reach customer listings' : 'Your showcase is saved in this demo workspace'}</h3><p>{live ? 'Changes are stored by the shared SportiLand backend. Customer pages refresh published venue information periodically.' : 'Game selections and event details are saved in this browser for now. Cross-app publishing can be connected when the customer event section is updated.'}</p></div><span className="showcase-lock"><ShieldCheck size={22}/></span></section>
     <section className="panel showcase-games-panel"><div className="panel-heading"><div><h3><Gamepad2 size={19}/> Games available at your turf</h3><p>Add the sports your venue offers. Games already selected will be removed from the add menu.</p></div><span className="muted-icon">{selected.length} selected</span></div>
       <div className="game-add-row"><label htmlFor="add-owner-game">Add a new game<select id="add-owner-game" value={gameToAdd} onChange={event => setGameToAdd(event.target.value)}><option value="">Choose a game to add</option>{availableGames.map(game => <option key={game} value={game}>{game}</option>)}</select></label><button className="primary-button" type="button" disabled={!gameToAdd} onClick={addGame}><Plus size={16}/> Add game</button></div>
       <div className="game-option-grid">{selected.map(game => <div key={game} className="game-option selected"><span><Check size={14}/>{game}</span><button type="button" onClick={() => removeGame(game)} aria-label={`Remove ${game}`} title={`Remove ${game}`}><X size={14}/></button></div>)}</div>

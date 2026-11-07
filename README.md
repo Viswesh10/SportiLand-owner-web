@@ -1,6 +1,6 @@
-# FieldFinder Turf Owner Web
+# SportiLand Turf Owner Web
 
-Standalone React + Vite frontend for the FieldFinder Turf Owner workspace.
+Standalone React + Vite frontend for the SportiLand Turf Owner workspace.
 
 ## Demo login
 
@@ -24,7 +24,7 @@ Open `http://localhost:5175`.
 This ZIP contains **only the Owner frontend**. It does not contain the Customer frontend or Spring Boot backend.
 
 1. Extract this ZIP. The extracted folder itself is the Vite project root (it contains `package.json`, `src/`, `public/` and `vercel.json`).
-2. Create a GitHub repository, for example `fieldfinder-owner-web`.
+2. Create a GitHub repository, for example `SportiLand-owner-web`.
 3. Upload/push the contents of this extracted folder to the repository root. Do not put them inside an extra nested `owner-web/owner-web` folder.
 4. Sign in to Vercel and choose **Add New → Project**.
 5. Import the GitHub repository.

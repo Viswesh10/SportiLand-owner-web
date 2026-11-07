@@ -1,4 +1,4 @@
-# FieldFinder Turf Owner Web — Revenue period picker + customer QR compatibility
+# SportiLand Turf Owner Web — Revenue period picker + customer QR compatibility
 
 This package contains the **owner frontend only**. The customer application is not included or modified.
 
@@ -22,7 +22,7 @@ The scanner accepts the Customer V8 `BookingPassModal` payload:
 
 ```json
 {
-  "type": "FIELDFINDER_BOOKING_PASS",
+  "type": "SPORTILAND_BOOKING_PASS",
   "version": 1,
   "bookingId": "FF-1234567",
   "token": "unique-pass-token",

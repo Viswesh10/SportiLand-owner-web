@@ -339,7 +339,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
   .main-footer{font-size:10px;flex-direction:column}
 }
 
-/* FieldFinder motion polish: subtle page entrances, lift effects and accessible motion */
+/* SportiLand motion polish: subtle page entrances, lift effects and accessible motion */
 @keyframes ff-owner-enter {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
@@ -549,7 +549,7 @@ button:disabled{opacity:.55;cursor:not-allowed}
 }
 
 /* Owner workspace refinements: fixed desktop sidebar, reliable page spacing and
-   responsive panels. These overrides keep the original FieldFinder palette. */
+   responsive panels. These overrides keep the original SportiLand palette. */
 .owner-layout{align-items:flex-start}
 .sidebar{position:sticky;top:76px;align-self:flex-start;height:calc(100vh - 76px);overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#d5e3cc transparent}
 .sidebar::-webkit-scrollbar{width:5px}
@@ -1135,3 +1135,102 @@ button:disabled{opacity:.55;cursor:not-allowed}
 .revenue-line-path{stroke-dasharray:2400;stroke-dashoffset:2400;animation:ff-revenue-line-draw 1.05s cubic-bezier(.2,.75,.2,1) forwards}
 .revenue-line-chart-shell:focus-visible{outline:3px solid rgba(73,143,161,.45);outline-offset:3px}
 @media(prefers-reduced-motion:reduce){.revenue-line-path{animation:none!important;stroke-dasharray:none;stroke-dashoffset:0}}
+
+/* SportiLand owner portal: policy page, sports-led auth artwork and responsive login polish. */
+.auth-screen{min-height:100svh;overflow-x:hidden;}
+.auth-left{position:relative;isolation:isolate;}
+.auth-intro{width:100%;}
+.auth-sports-scene{position:relative;height:148px;max-width:490px;margin:23px 0 0;isolation:isolate;}
+.auth-sports-scene::before{content:"";position:absolute;inset:10px 7% 0 2%;border:1px solid rgba(68,111,43,.2);border-radius:18px;transform:skewY(-4deg);background:linear-gradient(135deg,rgba(255,255,255,.48),rgba(255,255,255,.12));z-index:-1;}
+.auth-sports-photo{position:absolute;overflow:hidden;border:4px solid rgba(255,255,255,.96);border-radius:15px;background:#e7efdf;box-shadow:0 13px 26px rgba(37,66,25,.14);}
+.auth-sports-photo img{display:block;width:100%;height:100%;object-fit:cover;}
+.auth-sports-photo::after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(9,24,12,.58));pointer-events:none;}
+.auth-sports-photo span{position:absolute;left:12px;bottom:10px;z-index:1;color:#fff;font-size:9px;font-weight:950;letter-spacing:1.5px;text-shadow:0 1px 5px #0008;}
+.auth-sports-photo-main{left:5px;top:5px;width:55%;height:126px;transform:rotate(-2.5deg);animation:owner-sports-float 5s ease-in-out infinite;}
+.auth-sports-photo-side{right:7%;top:19px;width:39%;height:112px;transform:rotate(3deg);animation:owner-sports-float 5.8s ease-in-out -1.4s infinite;}
+.auth-sports-orbit{position:absolute;right:1%;top:-7px;width:43px;height:43px;display:grid;place-items:center;border:1px solid #cfe3c0;border-radius:14px;background:#f7fbf2;color:#386b27;box-shadow:0 8px 20px rgba(37,66,25,.1);animation:owner-auth-icon-float 4s ease-in-out infinite;}
+@keyframes owner-sports-float{0%,100%{translate:0 0}50%{translate:0 -5px}}
+.owner-app .auth-tabs button{cursor:pointer;transition:background .22s ease,box-shadow .22s ease,color .22s ease,transform .22s cubic-bezier(.2,.7,.2,1);}
+.owner-app .auth-tabs button:hover{background:rgba(255,255,255,.72);transform:translateY(-1px);}
+.owner-app .auth-tabs button.active:hover{background:#fff;}
+.owner-app .auth-form>.primary-button{position:relative;overflow:hidden;isolation:isolate;transition:transform .2s ease,box-shadow .2s ease,filter .2s ease;}
+.owner-app .auth-form>.primary-button::after{content:"";position:absolute;top:-45%;left:-50%;width:34%;height:190%;transform:translateX(-180%) rotate(18deg);background:linear-gradient(90deg,transparent,rgba(255,255,255,.48),transparent);transition:transform .65s cubic-bezier(.2,.7,.2,1);z-index:-0;pointer-events:none;}
+.owner-app .auth-form>.primary-button:hover::after{transform:translateX(520%) rotate(18deg);}
+.owner-app .auth-form>.primary-button svg,.owner-app .auth-form>.primary-button{z-index:1;}
+.owner-app .auth-form>.primary-button:focus-visible,.owner-app .auth-tabs button:focus-visible{outline:3px solid rgba(117,168,75,.45);outline-offset:3px;}
+.owner-terms-page{width:min(100%,1040px);margin:0 auto 36px;}
+.owner-terms-card{position:relative;overflow:hidden;padding:clamp(20px,3.2vw,36px);border:1px solid #dfe9d7;border-radius:20px;background:linear-gradient(145deg,#fff 0%,#fcfef9 100%);box-shadow:0 14px 42px rgba(35,64,24,.055);}
+.owner-terms-card::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:linear-gradient(90deg,#315d1e,#7fb94c,#b9f36b);}
+.owner-terms-kicker{display:inline-flex;margin:2px 0 10px;color:#4d7b32;font-size:10px;font-weight:950;letter-spacing:1.7px;}
+.owner-terms-card h2{margin:0 0 12px;color:#152016;font:900 clamp(23px,3vw,32px)/1.15 Manrope,Inter,sans-serif;letter-spacing:-.8px;}
+.owner-terms-card>p:not(.owner-terms-footnote){max-width:850px;margin:0 0 24px;color:#596653;font-size:14px;line-height:1.75;}
+.owner-terms-card section{padding:18px 0;border-top:1px solid #e8eee3;}
+.owner-terms-card section h3{margin:0 0 9px;color:#233b20;font-size:15px;font-weight:900;}
+.owner-terms-card section p,.owner-terms-card section li{color:#52604d;font-size:13px;line-height:1.75;}
+.owner-terms-card section ul{margin:0;padding-left:20px;display:grid;gap:6px;}
+.owner-terms-card section li::marker{color:#78ad4e;}
+.owner-terms-card strong{color:#294d21;}
+.owner-terms-important{margin:18px 0 12px;padding:16px 18px;border:1px solid #d6e8c8;border-radius:13px;background:#f1f8e9;color:#405b35;font-size:13px;line-height:1.7;}
+.owner-terms-footnote{margin:13px 0 0;color:#7b8775;font-size:11px;line-height:1.65;}
+.owner-account-dropdown .dropdown-menu{min-width:225px;padding:8px;border:1px solid #e1e8da;border-radius:14px;box-shadow:0 16px 42px rgba(23,44,16,.12);}
+.owner-account-dropdown .dropdown-item{display:flex;align-items:center;gap:8px;min-height:38px;border-radius:8px;font-size:12px;font-weight:750;}
+.owner-account-dropdown .dropdown-item:hover{background:#f1f8e9;color:#294d21;}
+@media(max-width:1100px){
+  .auth-left{padding:30px 34px;}
+  .auth-intro{max-width:520px;}
+  .auth-sports-scene{max-width:460px;}
+}
+@media(max-width:850px){
+  .auth-screen{grid-template-columns:minmax(0,1fr);min-height:100svh;}
+  .auth-left{min-height:auto;padding:24px clamp(20px,5vw,42px) 16px;border-right:0;border-bottom:1px solid #d9e7cf;}
+  .auth-brand{font-size:20px;}
+  .auth-intro{max-width:720px;margin:26px auto 8px;}
+  .auth-intro h1{font-size:clamp(34px,7vw,48px);}
+  .auth-intro p{max-width:560px;}
+  .auth-feature-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:19px;}
+  .auth-feature-list span{min-height:42px;padding:9px 10px;font-size:11px;}
+  .auth-sports-scene{height:130px;margin:17px auto 0;max-width:560px;}
+  .auth-sports-photo-main{height:112px;width:48%;}
+  .auth-sports-photo-side{height:100px;width:34%;right:12%;}
+  .auth-right{padding:24px 18px 34px;}
+  .auth-card{width:min(560px,100%);}
+  .auth-left-foot{display:block;margin-top:5px;font-size:9px;}
+}
+@media(max-width:620px){
+  .auth-left{padding:19px 17px 12px;}
+  .auth-intro{margin:21px 0 6px;}
+  .auth-intro h1{font-size:clamp(31px,9vw,40px);letter-spacing:-1.7px;line-height:1.06;}
+  .auth-intro p{font-size:13px;line-height:1.6;}
+  .auth-feature-list{grid-template-columns:1fr;gap:7px;margin-top:15px;}
+  .auth-feature-list span{min-height:0;padding:8px 10px;font-size:11px;}
+  .auth-sports-scene{height:112px;margin-top:14px;}
+  .auth-sports-photo-main{width:55%;height:98px;}
+  .auth-sports-photo-side{right:5%;width:39%;height:88px;top:13px;}
+  .auth-sports-orbit{width:36px;height:36px;right:0;top:-5px;}
+  .auth-left-foot{display:none;}
+  .auth-right{padding:15px 12px 25px;align-items:flex-start;}
+  .auth-card{padding:22px 16px;border-radius:17px;}
+  .auth-heading h2{font-size:24px;}
+  .auth-heading p{font-size:12px;line-height:1.5;}
+  .auth-tabs button{min-height:40px;}
+  .auth-form{gap:12px;}
+  .auth-form input,.auth-form select{height:44px;font-size:16px;}
+  .auth-form>.primary-button{min-height:48px;width:100%;justify-content:center;}
+  .demo-credentials{font-size:11px;}
+  .owner-terms-card{padding:21px 17px;border-radius:15px;}
+  .owner-terms-card section{padding:15px 0;}
+  .owner-terms-card section h3{font-size:14px;}
+  .owner-terms-card section p,.owner-terms-card section li{font-size:12px;}
+  .owner-terms-important{padding:13px;font-size:12px;}
+  .owner-account-dropdown .dropdown-menu{max-width:calc(100vw - 24px);}
+}
+@media(max-width:380px){
+  .auth-intro h1{font-size:30px;}
+  .auth-card{padding:19px 13px;}
+  .auth-heading h2{font-size:22px;}
+  .form-two{grid-template-columns:1fr;}
+}
+@media(prefers-reduced-motion:reduce){
+  .auth-sports-photo-main,.auth-sports-photo-side,.auth-sports-orbit{animation:none!important;}
+  .owner-app .auth-form>.primary-button::after{display:none;}
+}
