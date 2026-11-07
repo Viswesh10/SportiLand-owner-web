@@ -949,3 +949,189 @@ button:disabled{opacity:.55;cursor:not-allowed}
 
 
 .owner-notification-button{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 13px;border:1px solid #d7e4cf;border-radius:12px;background:#fff;color:#24452a;font:800 12px inherit;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}.owner-notification-button:hover{transform:translateY(-2px);border-color:#8fc85c;box-shadow:0 8px 20px rgba(34,70,35,.10)}.owner-notification-button b{display:grid;place-items:center;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:#dff3d1;color:#23512b;font-size:11px}.owner-notification-button:focus-visible{outline:3px solid rgba(130,190,72,.35);outline-offset:2px}@media(max-width:720px){.owner-notification-button span{display:none}.owner-notification-button{min-width:40px;justify-content:center;padding:0 10px}}
+
+/* Owner QR pass scanner + demo check-in */
+.ff-scanner-demo-alert{display:flex;align-items:flex-start;gap:10px;padding:13px 15px;margin:0 0 17px;border:1px solid #efd9a6;border-radius:11px;background:#fff9e9;color:#91641e}
+.ff-scanner-demo-alert span{display:grid;gap:3px}
+.ff-scanner-demo-alert strong{font-size:12px}
+.ff-scanner-demo-alert small{color:#806b45;font-size:11px;line-height:1.5}
+.ff-scanner-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+.ff-scanner-panel,.ff-pass-result-panel{padding:18px;min-width:0}
+.ff-scanner-panel .panel-heading h3{display:flex;align-items:center;gap:8px}
+.ff-scanner-panel .panel-heading h3 svg{color:#4d7f36}
+.ff-scanner-live-dot{display:inline-flex;align-items:center;gap:6px;padding:5px 8px;border-radius:20px;background:#eff8e8;color:#426d2c;font-size:9px;font-weight:900;letter-spacing:.6px}
+.ff-scanner-live-dot:before{content:'';width:6px;height:6px;border-radius:50%;background:#7db84c;box-shadow:0 0 0 3px #7db84c22}
+.ff-qr-reader{width:min(100%,420px);margin:12px auto 10px;border:1px solid #e2e9dd;border-radius:12px;overflow:hidden;background:#fbfdf9}
+.ff-qr-reader #qr-reader__dashboard_section_csr button{padding:7px 10px;border:1px solid #d5e3ca;border-radius:7px;background:#f0f7e9;color:#315a25;font-size:11px;font-weight:800}
+.ff-qr-reader #qr-reader__status_span{font-size:11px;color:#66745e}
+.ff-qr-reader video{border-radius:8px}
+.ff-scanner-help{display:flex;gap:8px;align-items:flex-start;margin:10px 0;color:#7b8776;font-size:10px;line-height:1.5}
+.ff-scanner-error{padding:9px 11px;border:1px solid #f2c8c2;border-radius:8px;background:#fff3f1;color:#a1372d;font-size:11px;font-weight:700;margin:10px 0}
+.ff-scanner-manual{margin-top:15px;padding-top:15px;border-top:1px solid #edf0ea}
+.ff-scanner-manual>strong{font-size:12px;color:#2d3e2d}
+.ff-scanner-manual>p{margin:4px 0 9px;color:#7b8776;font-size:10px;line-height:1.45}
+.ff-scanner-manual form{display:grid;gap:8px}
+.ff-scanner-manual textarea{width:100%;padding:10px;border:1px solid #d9e1d5;border-radius:8px;resize:vertical;font:11px/1.5 ui-monospace,monospace;color:#334333;background:#fff}
+.ff-scanner-manual .primary-button{justify-self:start;display:inline-flex;align-items:center;gap:7px}
+.ff-pass-empty{min-height:365px;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px}
+.ff-pass-empty>span{width:56px;height:56px;display:grid;place-items:center;border-radius:15px;background:#eff7e9;color:#588139}
+.ff-pass-empty h3{margin:14px 0 5px;color:#243726;font:800 17px Manrope}
+.ff-pass-empty p{max-width:280px;margin:0;color:#7b8776;font-size:11px;line-height:1.5}
+.ff-pass-empty-mini{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:17px}
+.ff-pass-empty-mini span{padding:6px 8px;border:1px solid #e5ece0;border-radius:20px;color:#7d8976;font-size:9px;font-weight:800}
+.ff-pass-result-state{display:flex;align-items:flex-start;gap:10px;padding:12px;border-radius:10px;margin-bottom:16px}
+.ff-pass-result-state.read{background:#eef8e9;border:1px solid #d4e8c8;color:#3e722e}
+.ff-pass-result-state.used{background:#fff5e9;border:1px solid #eed9ba;color:#94631e}
+.ff-pass-result-state>div{display:grid;gap:3px}
+.ff-pass-result-state strong{font-size:12px}
+.ff-pass-result-state small{font-size:10px;color:#71806b;line-height:1.45}
+.ff-pass-result-head{display:grid;gap:4px;padding-bottom:13px;border-bottom:1px solid #edf0ea}
+.ff-pass-result-head span{font-size:9px;letter-spacing:.8px;font-weight:900;color:#859081}
+.ff-pass-result-head strong{font:800 18px Manrope;color:#263c27;letter-spacing:.6px}
+.ff-pass-result-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 12px;padding:16px 0}
+.ff-pass-result-grid>div{display:grid;gap:4px;min-width:0}
+.ff-pass-result-grid strong{font-size:11px;color:#334333;overflow-wrap:anywhere;line-height:1.4}
+.ff-pass-token-display{display:grid;gap:5px;padding:10px;border-radius:8px;background:#f7faf4;border:1px solid #e5ece0}
+.ff-pass-token-display code{font-size:10px;color:#355a2b;overflow-wrap:anywhere}
+.ff-checkin-button{width:100%;margin-top:13px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.ff-pass-used-note{margin:12px 0;padding:10px;border-radius:8px;background:#fff7eb;color:#8a5d1d;font-size:10px;line-height:1.5}
+.ff-pass-result-panel .full-button{width:100%;margin-top:9px;display:flex;align-items:center;justify-content:center;gap:7px}
+.ff-scanner-venue-label{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:17px;padding-top:12px;border-top:1px solid #edf0ea;color:#869181;font-size:9px;font-weight:800;letter-spacing:.3px}
+@media(max-width:1000px){.ff-scanner-layout{grid-template-columns:1fr}}
+@media(max-width:600px){.ff-scanner-panel,.ff-pass-result-panel{padding:13px}.ff-pass-empty{min-height:250px}.ff-pass-result-grid{gap:12px 8px}}
+
+/* Revenue analytics range switcher + responsive animated bar chart. */
+.revenue-chart-header{align-items:flex-start;flex-wrap:wrap;gap:16px}
+.revenue-chart-title-block{min-width:210px;flex:1}
+.revenue-chart-tools{display:flex;align-items:flex-end;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+.revenue-period-tabs{display:inline-flex;align-items:center;gap:3px;padding:4px;border:1px solid #e2ecd9;border-radius:11px;background:#f2f7ed;box-shadow:inset 0 1px 2px rgba(34,63,25,.035)}
+.revenue-period-tabs button{height:34px;padding:0 13px;border:0;border-radius:8px;background:transparent;color:#63745b;font-size:11px;font-weight:900;cursor:pointer;transition:background .2s ease,color .2s ease,box-shadow .2s ease}
+.revenue-period-tabs button:hover{color:#294c21;background:rgba(255,255,255,.72)}
+.revenue-period-tabs button.active{color:#24491b;background:#fff;box-shadow:0 2px 8px rgba(37,72,25,.11),inset 0 0 0 1px #e2edda}
+.revenue-range-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-7px 0 13px;padding:0 2px;color:#74806e;font-size:10px;font-weight:800}
+.revenue-range-summary strong{color:#263f21;font-size:14px;font-weight:950;letter-spacing:-.2px}
+.revenue-chart-grid{overflow-x:auto;overflow-y:hidden;padding:12px!important;scrollbar-width:thin;scrollbar-color:#d0dfc4 transparent;overscroll-behavior-x:contain}
+.revenue-chart-grid::-webkit-scrollbar{height:7px}
+.revenue-chart-grid::-webkit-scrollbar-thumb{border-radius:10px;background:#d0dfc4}
+.revenue-chart-inner{position:relative;width:100%;height:100%;min-height:225px;padding:8px 12px 8px 76px;box-sizing:border-box}
+.revenue-grid-lines{inset:7px 12px 39px 0!important;left:0!important;right:12px!important}
+.revenue-grid-lines span{display:flex;align-items:flex-start;padding-top:0!important;transform:translateY(-6px);font-variant-numeric:tabular-nums}
+.revenue-bars{grid-template-columns:repeat(var(--bucket-count),minmax(0,1fr));gap:clamp(8px,1.9vw,24px);padding:0 5px;height:100%;align-items:stretch}
+.revenue-bar-column{height:100%;gap:7px;justify-content:flex-end}
+.revenue-bar-stage{flex:1 1 auto;height:auto;min-height:120px;width:min(68px,82%);overflow:hidden;align-items:flex-end;border-radius:15px 15px 7px 7px}
+.revenue-bar-fill{height:100%;min-height:0;transform:scaleY(var(--bar-scale,0));transform-origin:bottom;border-radius:15px 15px 6px 6px;animation:owner-revenue-period-rise .82s cubic-bezier(.18,.72,.2,1) both;animation-delay:var(--bar-delay,0ms);will-change:transform}
+.revenue-bar-fill::after{content:"";position:absolute;inset:0 0 auto;height:28px;background:linear-gradient(180deg,rgba(255,255,255,.36),transparent);pointer-events:none}
+.revenue-bar-column>strong{font-size:11px;white-space:nowrap}
+.revenue-bar-column>small{font-size:9px;white-space:nowrap}
+.revenue-value-label{font-size:10px;font-variant-numeric:tabular-nums;min-height:19px}
+.revenue-chart-footer{margin-top:12px}
+@keyframes owner-revenue-period-rise{from{transform:scaleY(0)}to{transform:scaleY(var(--bar-scale,0))}}
+.ff-pass-result-state.mismatch{background:#fff5e9;border:1px solid #eed9ba;color:#94631e}
+@media(max-width:760px){
+  .revenue-chart-header{display:flex;flex-direction:column;align-items:stretch}
+  .revenue-chart-tools{width:100%;justify-content:space-between;align-items:center}
+  .revenue-period-tabs{max-width:100%}
+  .revenue-period-tabs button{padding:0 11px}
+  .revenue-peak{min-width:112px}
+  .revenue-chart-grid{height:270px}
+  .revenue-chart-inner{min-height:238px}
+}
+@media(max-width:520px){
+  .revenue-range-summary{align-items:flex-start;flex-direction:column;gap:3px}
+  .revenue-chart-tools{align-items:stretch;flex-direction:column}
+  .revenue-period-tabs{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+  .revenue-period-tabs button{padding:0 7px}
+  .revenue-peak{align-self:flex-end}
+  .revenue-chart-grid{height:255px}
+  .revenue-chart-inner{padding-left:60px}
+}
+@media(prefers-reduced-motion:reduce){
+  .revenue-period-tabs button{transition:none}
+  .revenue-bar-fill{animation:none!important;transform:scaleY(var(--bar-scale,0))!important;will-change:auto}
+}
+
+/* Specific-period controls and softer, animated revenue chart treatment. */
+.revenue-date-toolbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:2px 0 18px;padding:12px 14px;border:1px solid #e4eddc;border-radius:13px;background:linear-gradient(110deg,#f7fbf2 0%,#fff 72%);}
+.revenue-date-caption{display:flex;align-items:center;gap:8px;color:#52674a;font-size:11px;font-weight:900;letter-spacing:.1px;}
+.revenue-date-caption svg{color:#5b9637;}
+.revenue-date-picker-control{display:flex;align-items:center;gap:7px;margin-left:auto;}
+.revenue-date-shift{width:33px;height:33px;display:grid;place-items:center;border:1px solid #dce8d3;border-radius:9px;background:#fff;color:#3d612e;cursor:pointer;transition:background .18s,border-color .18s,transform .18s;}
+.revenue-date-shift:hover{background:#eff8e8;border-color:#a8ce91;transform:translateY(-1px);}
+.revenue-specific-date{min-width:180px;padding:0 10px;border:1px solid #dce8d3;border-radius:9px;background:#fff;}
+.revenue-specific-date .ff-date-field{width:auto;}
+.revenue-specific-date .ff-picker-trigger{height:33px;min-width:170px;padding:0 2px;border:0;border-radius:0;background:transparent;box-shadow:none;}
+.revenue-specific-date .ff-picker-trigger:hover,.revenue-specific-date .ff-picker-trigger[aria-expanded="true"]{border:0;background:transparent;box-shadow:none;transform:none;}
+.revenue-month-picker{height:35px;min-width:185px;display:flex;align-items:center;gap:9px;padding:0 11px;border:1px solid #dce8d3;border-radius:9px;background:#fff;color:#5b9637;}
+.revenue-month-picker input{min-width:0;flex:1;border:0;outline:0;background:transparent;color:#20331b;font:800 12px Manrope,Inter,sans-serif;cursor:pointer;}
+.revenue-month-picker input::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.65;}
+.revenue-month-picker>svg:last-child{color:#71836b;pointer-events:none;}
+.revenue-date-today{height:33px;padding:0 12px;border:1px solid #cfe2c3;border-radius:9px;background:#eff8e8;color:#315d1e;font-size:10px;font-weight:900;cursor:pointer;transition:background .18s,border-color .18s;}
+.revenue-date-today:hover{background:#e3f3d8;border-color:#9bc884;}
+.revenue-selected-range{width:100%;margin-top:-4px;color:#788572;font-size:10px;font-weight:800;}
+.revenue-bar-column{outline:0;cursor:default;}
+.revenue-bar-column:focus-visible .revenue-bar-stage{outline:3px solid rgba(117,183,72,.34);outline-offset:3px;}
+.revenue-bar-stage{transition:box-shadow .25s ease,background .25s ease;}
+.revenue-bar-fill{transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .25s ease;}
+.revenue-bar-column:hover .revenue-bar-fill,.revenue-bar-column:focus-visible .revenue-bar-fill{filter:saturate(1.16) brightness(1.035);}
+.revenue-bar-column:hover .revenue-value-label,.revenue-bar-column:focus-visible .revenue-value-label{transform:translateY(-2px);}
+.revenue-value-label{transition:transform .2s ease,color .2s ease,background .2s ease;}
+@media(max-width:760px){
+  .revenue-date-toolbar{align-items:flex-start;gap:10px;padding:11px;}
+  .revenue-date-caption{width:100%;}
+  .revenue-date-picker-control{width:100%;margin-left:0;}
+  .revenue-specific-date{flex:1;min-width:0;}
+  .revenue-specific-date .ff-picker-trigger{width:100%;min-width:0;}
+  .revenue-month-picker{flex:1;min-width:0;}
+  .revenue-selected-range{margin-top:0;}
+}
+@media(prefers-reduced-motion:reduce){
+  .revenue-date-shift,.revenue-date-today,.revenue-bar-fill,.revenue-bar-stage,.revenue-value-label{transition:none!important;}
+}
+
+/* V8 owner revenue: interactive smooth line chart inspired by the supplied reference image. */
+.revenue-line-chart-shell{
+  position:relative;
+  width:100%;
+  height:clamp(280px,34vw,390px);
+  margin:4px 0 0;
+  overflow:hidden;
+  border-radius:0 0 28px 28px;
+  background:#d8f1f6;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55);
+  touch-action:pan-y;
+  cursor:crosshair;
+  user-select:none;
+  -webkit-user-select:none;
+}
+.revenue-line-chart{display:block;width:100%;height:100%;overflow:visible}
+.revenue-line-gridline{stroke:rgba(49,91,100,.19);stroke-width:1.35;stroke-dasharray:5 7;vector-effect:non-scaling-stroke}
+.revenue-line-axis-label{fill:#56727a;font:600 18px Manrope,Inter,sans-serif;letter-spacing:-.2px}
+.revenue-line-area{pointer-events:none;transition:opacity .2s ease}
+.revenue-line-path{fill:none;stroke:#172b30;stroke-width:4.4;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;pointer-events:none;transition:d .28s ease}
+.revenue-line-guide{stroke:#435a60;stroke-width:1.5;stroke-dasharray:5 7;opacity:.75;vector-effect:non-scaling-stroke;pointer-events:none}
+.revenue-line-point-halo{fill:rgba(255,255,255,.32);stroke:rgba(26,48,54,.18);stroke-width:1.2;vector-effect:non-scaling-stroke}
+.revenue-line-point{fill:#d8f1f6;stroke:#172b30;stroke-width:3.2;vector-effect:non-scaling-stroke;transition:cx .08s linear,cy .08s linear,r .16s ease}
+.revenue-line-tooltip-bg{fill:#f7fcfd;stroke:rgba(45,83,91,.2);stroke-width:1;filter:drop-shadow(0 4px 10px rgba(23,54,62,.09));}
+.revenue-line-tooltip-text{fill:#183137;font:900 17px Manrope,Inter,sans-serif;font-variant-numeric:tabular-nums}
+.revenue-line-x-main{fill:#71858a;font:700 16px Manrope,Inter,sans-serif;transition:fill .16s ease,font-weight .16s ease}
+.revenue-line-x-sub{fill:#71858a;font:600 13px Manrope,Inter,sans-serif}
+.revenue-line-x-label.active .revenue-line-x-main{fill:#152b31;font-weight:950}
+.revenue-line-x-label.active .revenue-line-x-sub{fill:#284950;font-weight:850}
+.revenue-line-live-value{position:absolute;top:14px;right:18px;display:flex;flex-direction:column;align-items:flex-end;gap:3px;padding:8px 11px;border:1px solid rgba(83,132,143,.17);border-radius:11px;background:rgba(246,252,253,.74);color:#49656b;pointer-events:none;backdrop-filter:blur(6px)}
+.revenue-line-live-value span{font-size:10px;font-weight:800}
+.revenue-line-live-value strong{font-size:15px;line-height:1.2;font-weight:950;color:#18383e;font-variant-numeric:tabular-nums}
+.revenue-line-live-value small{font-size:9px;font-weight:750;color:#71858a}
+@media(max-width:700px){
+  .revenue-line-chart-shell{height:280px;border-radius:0 0 19px 19px}
+  .revenue-line-axis-label{font-size:22px}
+  .revenue-line-x-main{font-size:21px}
+  .revenue-line-x-sub{font-size:17px}
+  .revenue-line-live-value{top:8px;right:8px;padding:6px 8px}
+}
+@media(prefers-reduced-motion:reduce){
+  .revenue-line-path,.revenue-line-point,.revenue-line-x-main,.revenue-line-area{transition:none!important}
+}
+@keyframes ff-revenue-line-draw{from{stroke-dashoffset:2400}to{stroke-dashoffset:0}}
+.revenue-line-path{stroke-dasharray:2400;stroke-dashoffset:2400;animation:ff-revenue-line-draw 1.05s cubic-bezier(.2,.75,.2,1) forwards}
+.revenue-line-chart-shell:focus-visible{outline:3px solid rgba(73,143,161,.45);outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.revenue-line-path{animation:none!important;stroke-dasharray:none;stroke-dashoffset:0}}

@@ -1,19 +1,21 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ownerApi, backendOwnerLogin, backendOwnerRegister } from './services/sharedContentApi'
+import { Html5QrcodeScanner } from 'html5-qrcode'
 import {
   Activity, ArrowRight, BellRing, Calendar, CalendarCheck, CalendarDays, Check, CheckCircle2,
   ChevronDown, ChevronLeft, ChevronRight, Clock3, Download, Edit3, Eye,
   EyeOff, LayoutDashboard, LogOut, MapPin, Menu, Plus, Save, Search,
   ShieldCheck, TrendingUp, Users, Wallet, X, Ban, Building2, CircleHelp,
-  Trophy, UserRound, ClipboardList, Images, Upload, Trash2, Gamepad2, Video, FileImage,
-  Mountain, Flag, UserCheck, Ticket,
+  Trophy, UserRound, ClipboardList, Images, Upload, Trash2, Gamepad2, Video, FileImage, Camera,
+  Mountain, Flag, UserCheck, Ticket, QrCode, ScanLine, RotateCcw, AlertTriangle,
 } from 'lucide-react'
 
 const STORE = {
   accounts: 'ff-owner-demo-accounts-v1',
   bookings: 'ff-owner-demo-bookings-v1',
   slots: 'ff-owner-demo-slots-v1',
-  events: 'ff-owner-events-v1'
+  events: 'ff-owner-events-v1',
+  checkIns: 'ff-owner-demo-checkins-v1'
 }
 // Keep authentication in this browser tab, and use a fresh key so older demo
 // sessions cannot silently bypass the required login screen.
@@ -247,6 +249,7 @@ const navItems = [
   { id: 'overview', label: 'Overview', icon: LayoutDashboard },
   { id: 'availability', label: 'Availability', icon: CalendarDays },
   { id: 'bookings', label: 'Bookings', icon: ClipboardList },
+  { id: 'scanner', label: 'Scan booking QR', icon: QrCode },
   { id: 'revenue', label: 'Revenue', icon: Wallet },
   { id: 'showcase', label: 'Showcase & games', icon: Images },
   { id: 'events', label: 'Events & treks', icon: CalendarDays },
@@ -279,6 +282,7 @@ export default function App() {
   })
   const [session, setSession] = useState(() => readTabSession())
   const [bookings, setBookings] = useState(() => readStore(STORE.bookings, seedBookings()))
+  const [checkedInPasses, setCheckedInPasses] = useState(() => readStore(STORE.checkIns, []))
   const [slots, setSlots] = useState(() => readStore(STORE.slots, seedSlots()))
   const [ownerEvents, setOwnerEvents] = useState(() => readStore(STORE.events, seedOwnerEvents()))
   const [page, setPage] = useState('overview')
@@ -306,6 +310,7 @@ export default function App() {
 
   useEffect(() => writeStore(STORE.accounts, accounts), [accounts])
   useEffect(() => writeStore(STORE.bookings, bookings), [bookings])
+  useEffect(() => writeStore(STORE.checkIns, checkedInPasses), [checkedInPasses])
   useEffect(() => writeStore(STORE.slots, slots), [slots])
   useEffect(() => writeStore(STORE.events, ownerEvents), [ownerEvents])
   useEffect(() => writeTabSession(session), [session])
@@ -428,6 +433,25 @@ export default function App() {
     setPage('overview')
     setProfileForm(null)
   }
+  function markDemoCheckIn(pass) {
+    if (!pass?.token) return
+    const normalizeVenue = value => String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+    if (normalizeVenue(pass.venue) !== normalizeVenue(turf?.name)) {
+      notify('This booking pass belongs to a different venue.')
+      return
+    }
+    if (/cancel|reject/i.test(String(pass.bookingStatus || ''))) {
+      notify('Cancelled or rejected bookings cannot be checked in.')
+      return
+    }
+    if (checkedInPasses.some(item => item.token === pass.token)) {
+      notify('This QR pass has already been checked in on this browser.')
+      return
+    }
+    setCheckedInPasses(previous => [{ token: pass.token, bookingId: pass.bookingId, checkedInAt: new Date().toISOString(), turfId: turf?.id || '' }, ...previous])
+    notify('Demo check-in recorded in this browser only. Live verification needs a shared backend.')
+  }
+
   async function updateBooking(id, status) {
     const target = bookings.find(item => item.id === id)
     if (target?.backend && session?.backend) {
@@ -695,6 +719,7 @@ export default function App() {
             onSave={saveSlot} onCancelEdit={() => setEditSlot(null)}
             error={slotError} turf={turf}
           />}
+          {page === 'scanner' && <BookingQrScanner onCheckIn={markDemoCheckIn} checkedInPasses={checkedInPasses} turf={turf} />}
           {page === 'bookings' && <Bookings
             bookings={filteredBookings} filter={bookingFilter}
             onFilter={setBookingFilter} search={search} onSearch={setSearch}
@@ -865,6 +890,121 @@ function AuthScreen({ accounts, onAccounts, onSignIn }) {
   )
 }
 
+function BookingQrScanner({ onCheckIn, checkedInPasses, turf }) {
+  const [scanVersion, setScanVersion] = useState(0)
+  const [pass, setPass] = useState(null)
+  const [manualValue, setManualValue] = useState('')
+  const [error, setError] = useState('')
+  const alreadyCheckedIn = pass && checkedInPasses.some(item => item.token === pass.token)
+  const normalizeVenue = value => String(value || '').trim().toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()
+  const venueMatches = pass && normalizeVenue(pass.venue) === normalizeVenue(turf?.name)
+  const cancelledPass = pass && /cancel|reject/i.test(String(pass.bookingStatus || ''))
+  const canCheckIn = Boolean(pass && !alreadyCheckedIn && venueMatches && !cancelledPass)
+
+  useEffect(() => {
+    if (pass) return undefined
+    let active = true
+    let scanner
+    const timer = window.setTimeout(() => {
+      if (!active) return
+      try {
+        scanner = new Html5QrcodeScanner('fieldfinder-booking-qr-reader', {
+          fps: 10,
+          qrbox: { width: 230, height: 230 },
+          aspectRatio: 1,
+          rememberLastUsedCamera: true
+        }, false)
+        scanner.render(decodedText => {
+          if (!active) return
+          try {
+            const data = JSON.parse(decodedText)
+            validateFieldFinderPass(data)
+            setPass(data)
+            setError('')
+            scanner?.clear().catch(() => {})
+          } catch (scanError) {
+            setError(scanError.message || 'This QR code is not a recognised FieldFinder booking pass.')
+          }
+        }, () => {})
+      } catch (scannerError) {
+        setError('Camera scanner could not start. Use the paste field below to test a booking pass.')
+      }
+    }, 100)
+    return () => {
+      active = false
+      window.clearTimeout(timer)
+      if (scanner) scanner.clear().catch(() => {})
+    }
+  }, [scanVersion, pass])
+
+  function readManualPass(event) {
+    event.preventDefault()
+    try {
+      const data = JSON.parse(manualValue)
+      validateFieldFinderPass(data)
+      setPass(data)
+      setError('')
+    } catch (scanError) {
+      setError(scanError.message || 'Paste the complete FieldFinder QR data.')
+    }
+  }
+
+  function resetScanner() {
+    setPass(null)
+    setManualValue('')
+    setError('')
+    setScanVersion(value => value + 1)
+  }
+
+  return <>
+    <PageHeading eyebrow="VENUE CHECK-IN" title="Scan booking QR" description="Read a customer's FieldFinder pass before they enter the court." action={<span className="count-pill"><ScanLine size={14}/> QR check-in</span>} />
+    <div className="ff-scanner-demo-alert"><AlertTriangle size={17}/><span><strong>Frontend demo only</strong><small>This screen reads the QR data in the browser. It cannot confirm a live booking, payment or owner allocation until a shared backend is connected.</small></span></div>
+    <div className="ff-scanner-layout">
+      <section className="panel ff-scanner-panel">
+        <div className="panel-heading"><div><h3><QrCode size={18}/> Booking pass scanner</h3><p>Allow camera access and hold the QR code inside the frame.</p></div><span className="ff-scanner-live-dot">CAMERA</span></div>
+        {!pass && <div id="fieldfinder-booking-qr-reader" className="ff-qr-reader" />}
+        {!pass && <div className="ff-scanner-help"><Camera size={16}/><span>Camera access works on localhost or an HTTPS deployment. On a phone, use the rear camera for clearer scans.</span></div>}
+        {error && <div className="ff-scanner-error">{error}</div>}
+        <div className="ff-scanner-manual"><strong>Test without a camera</strong><p>Paste the QR contents from a FieldFinder pass to preview the owner verification screen.</p><form onSubmit={readManualPass}><textarea value={manualValue} onChange={event => setManualValue(event.target.value)} rows={3} placeholder='Paste QR JSON data here…'/><button type="submit" className="primary-button"><ScanLine size={15}/> Read pass data</button></form></div>
+      </section>
+      <section className="panel ff-pass-result-panel">
+        {pass ? <>
+          <div className={`ff-pass-result-state ${alreadyCheckedIn || !venueMatches || cancelledPass ? 'used' : 'read'}`}><CheckCircle2 size={20}/><div><strong>{alreadyCheckedIn ? 'Already checked in on this browser' : !venueMatches ? 'This pass is for a different venue' : cancelledPass ? 'This booking is cancelled or rejected' : 'QR pass successfully read'}</strong><small>{alreadyCheckedIn ? 'This demo pass token was previously used here.' : !venueMatches ? `Pass venue: ${pass.venue || 'Not provided'}. Current venue: ${turf?.name || 'Not set'}.` : cancelledPass ? 'Do not check in a cancelled or rejected booking.' : 'The pass venue matches. Check the booking and payment details with the customer.'}</small></div></div>
+          <div className="ff-pass-result-head"><span>BOOKING REFERENCE</span><strong>{pass.bookingId}</strong></div>
+          <div className="ff-pass-result-grid">
+            <div><small>CUSTOMER</small><strong>{pass.customer}</strong></div>
+            <div><small>VENUE</small><strong>{pass.venue}</strong></div>
+            <div><small>SPORT</small><strong>{pass.sport}</strong></div>
+            <div><small>DATE</small><strong>{formatDate(pass.date)}</strong></div>
+            <div><small>TIME</small><strong>{timeLabel(pass.time)}</strong></div>
+            <div><small>DURATION</small><strong>{pass.durationHours} hour(s)</strong></div>
+            <div><small>BOOKING AMOUNT</small><strong>{money(pass.amount)}</strong></div>
+            <div><small>PAYMENT STATUS</small><strong>{pass.paymentStatus}</strong></div>
+            <div><small>BOOKING STATUS</small><strong>{pass.bookingStatus}</strong></div>
+          </div>
+          <div className="ff-pass-token-display"><small>PASS TOKEN</small><code>{pass.token}</code></div>
+          {!venueMatches && <div className="ff-pass-used-note">Venue mismatch: this QR pass should only be presented at the venue printed on the pass.</div>}
+          {cancelledPass && <div className="ff-pass-used-note">This booking is marked {pass.bookingStatus}. Check-in is disabled for this pass.</div>}
+          {alreadyCheckedIn ? <div className="ff-pass-used-note">This token is already marked as checked in in this browser's local demo history.</div> : canCheckIn ? <button className="primary-button ff-checkin-button" onClick={() => onCheckIn(pass)}><CheckCircle2 size={16}/> Mark checked in (demo)</button> : null}
+          <button type="button" className="outline-button full-button" onClick={resetScanner}><RotateCcw size={15}/> Scan another pass</button>
+        </> : <div className="ff-pass-empty"><span><QrCode size={28}/></span><h3>Waiting for a booking pass</h3><p>When a customer shows their QR code, the booking details will appear here.</p><div className="ff-pass-empty-mini"><span>Customer name</span><span>Booking ID</span><span>Slot & payment info</span></div></div>}
+        <div className="ff-scanner-venue-label"><ShieldCheck size={14}/> {turf?.name || 'Your turf'} · Demo verification</div>
+      </section>
+    </div>
+  </>
+}
+
+function validateFieldFinderPass(data) {
+  if (!data || data.type !== 'FIELDFINDER_BOOKING_PASS' || data.version !== 1) throw new Error('This is not a FieldFinder booking QR.')
+  // Keep these field names aligned with Customer V8 BookingPassModal.
+  const required = ['bookingId', 'token', 'customer', 'venue', 'sport', 'date', 'time', 'durationHours', 'amount', 'paymentStatus', 'bookingStatus']
+  const missing = required.filter(key => data[key] === undefined || data[key] === null || data[key] === '')
+  if (missing.length) throw new Error(`QR pass is missing required details: ${missing.join(', ')}.`)
+  if (!Number.isFinite(Number(data.durationHours)) || !Number.isFinite(Number(data.amount))) throw new Error('The QR pass has invalid duration or amount details.')
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(String(data.date)) || !/^\d{2}:\d{2}$/.test(String(data.time))) throw new Error('The QR pass contains an invalid date or time.')
+  return true
+}
+
 function PageHeading({ eyebrow = 'OWNER WORKSPACE', title, description, action, className = '' }) {
   return <div className={`page-heading ${className}`.trim()}><div><p className="eyebrow">{eyebrow}</p><h1>{title}</h1><p className="page-description">{description}</p></div>{action}</div>
 }
@@ -1012,31 +1152,225 @@ function BookingTable({ bookings, onUpdate, compact = false }) {
   </tbody></table></div>
 }
 
+
+function RevenueLineChart({ buckets, axisValues, axisMax, money, formatValue, period }) {
+  const [selectedIndex, setSelectedIndex] = useState(Math.max(0, buckets.length - 1))
+  useEffect(() => { setSelectedIndex(Math.max(0, buckets.length - 1)) }, [period, buckets.length])
+  const width = 1000
+  const height = 420
+  const plot = { left: 92, right: 940, top: 48, bottom: 326 }
+  const safeMax = Math.max(1, axisMax)
+  const span = Math.max(1, buckets.length - 1)
+  const points = buckets.map((bucket, index) => ({
+    x: plot.left + ((plot.right - plot.left) * index / span),
+    y: plot.bottom - (Math.max(0, bucket.value) / safeMax) * (plot.bottom - plot.top),
+    ...bucket
+  }))
+  const activeIndex = Math.min(Math.max(0, selectedIndex), Math.max(0, points.length - 1))
+  const active = points[activeIndex]
+  const linePath = points.reduce((path, point, index) => {
+    if (index === 0) return `M ${point.x} ${point.y}`
+    const previous = points[index - 1]
+    const dx = point.x - previous.x
+    return `${path} C ${previous.x + dx * .42} ${previous.y}, ${point.x - dx * .42} ${point.y}, ${point.x} ${point.y}`
+  }, '')
+  const areaPath = points.length ? `${linePath} L ${points[points.length - 1].x} ${plot.bottom} L ${points[0].x} ${plot.bottom} Z` : ''
+  const chooseAtPointer = event => {
+    if (!points.length) return
+    const rect = event.currentTarget.getBoundingClientRect()
+    const x = ((event.clientX - rect.left) / Math.max(1, rect.width)) * width
+    const relative = Math.max(0, Math.min(1, (x - plot.left) / (plot.right - plot.left)))
+    setSelectedIndex(Math.round(relative * span))
+  }
+  const chooseWithKeyboard = event => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight' && event.key !== 'Home' && event.key !== 'End') return
+    event.preventDefault()
+    setSelectedIndex(index => event.key === 'Home' ? 0 : event.key === 'End' ? Math.max(0, buckets.length - 1) : Math.max(0, Math.min(buckets.length - 1, index + (event.key === 'ArrowRight' ? 1 : -1))))
+  }
+  const dataSignature = buckets.map(bucket => `${bucket.key}:${bucket.value}:${bucket.count}`).join('|')
+  const tooltipX = active ? Math.max(110, Math.min(width - 110, active.x)) : width / 2
+  const tooltipY = active ? Math.max(24, active.y - 54) : 24
+  const ticks = axisValues.map((value, index) => ({
+    value,
+    y: plot.top + ((plot.bottom - plot.top) * index / Math.max(1, axisValues.length - 1))
+  }))
+
+  return <div className="revenue-line-chart-shell" onPointerMove={chooseAtPointer} onPointerDown={chooseAtPointer} onKeyDown={chooseWithKeyboard} tabIndex={0} role="slider" aria-valuemin={0} aria-valuemax={Math.max(0, buckets.length - 1)} aria-valuenow={activeIndex} aria-valuetext={active ? `${active.tooltip}, ${money(active.value)}` : 'No data'} aria-label={`${period} paid revenue line chart. Use arrow keys or touch the chart to inspect each period.`}>
+    <svg className="revenue-line-chart" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="revenue-line-area" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="#73c9dc" stopOpacity=".28" />
+          <stop offset="100%" stopColor="#73c9dc" stopOpacity=".015" />
+        </linearGradient>
+        <filter id="revenue-line-shadow" x="-20%" y="-30%" width="140%" height="160%">
+          <feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#17333a" floodOpacity=".12" />
+        </filter>
+      </defs>
+      {ticks.map((tick, index) => <g key={`tick-${index}`}>
+        <line x1={plot.left} x2={plot.right} y1={tick.y} y2={tick.y} className="revenue-line-gridline" />
+        <text x="22" y={tick.y + 5} className="revenue-line-axis-label">{formatValue(tick.value)}</text>
+      </g>)}
+      {areaPath && <path d={areaPath} fill="url(#revenue-line-area)" className="revenue-line-area" />}
+      {active && <line x1={active.x} x2={active.x} y1={plot.top} y2={plot.bottom} className="revenue-line-guide" />}
+      {linePath && <path key={dataSignature} d={linePath} className="revenue-line-path" filter="url(#revenue-line-shadow)" />}
+      {active && <g className="revenue-line-active-point">
+        <circle cx={active.x} cy={active.y} r="13" className="revenue-line-point-halo" />
+        <circle cx={active.x} cy={active.y} r="6.5" className="revenue-line-point" />
+        <rect x={tooltipX - 66} y={tooltipY - 24} width="132" height="34" rx="9" className="revenue-line-tooltip-bg" />
+        <text x={tooltipX} y={tooltipY - 2} textAnchor="middle" className="revenue-line-tooltip-text">{money(active.value)}</text>
+      </g>}
+      {points.map((point, index) => <g key={point.key} className={`revenue-line-x-label ${index === activeIndex ? 'active' : ''}`}>
+        <text x={point.x} y="365" textAnchor="middle" className="revenue-line-x-main">{point.label}</text>
+        <text x={point.x} y="388" textAnchor="middle" className="revenue-line-x-sub">{point.subLabel}</text>
+        <circle cx={point.x} cy={plot.bottom} r="18" fill="transparent" />
+      </g>)}
+    </svg>
+    <div className="revenue-line-live-value" aria-live="polite">
+      <span>{active?.tooltip || 'Selected period'}</span>
+      <strong>{active ? money(active.value) : money(0)}</strong>
+      <small>{active?.count || 0} paid booking{active?.count === 1 ? '' : 's'}</small>
+    </div>
+  </div>
+}
+
 function Revenue({ bookings, paid, pending }) {
-  const days = Array.from({ length: 7 }, (_, i) => addDays(today(), i - 6))
-  const values = days.map(date => bookings.filter(item => item.date === date && item.status !== 'Rejected').reduce((sum, item) => sum + paidAmount(item), 0))
-  const max = Math.max(...values, 1)
+  const [range, setRange] = useState('weekly')
+  const [anchorDate, setAnchorDate] = useState(today())
+  const [selectedMonth, setSelectedMonth] = useState(today().slice(0, 7))
+  const rangeConfig = {
+    daily: { subtitle: 'Daily paid booking value for the 7-day window ending on your selected date.', count: 7 },
+    weekly: { subtitle: 'Daily paid booking value for the specific week you select.', count: 7 },
+    monthly: { subtitle: 'Weekly paid booking value for the specific month you select.', count: 5 }
+  }
+  const config = rangeConfig[range]
+  const toIso = date => `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+  const parseIso = value => new Date(`${value}T12:00:00`)
+  const mondayOf = date => {
+    const start = new Date(date)
+    start.setDate(start.getDate() - ((start.getDay() + 6) % 7))
+    return start
+  }
+  const shiftSelection = amount => {
+    if (range === 'monthly') {
+      const [year, month] = selectedMonth.split('-').map(Number)
+      const next = new Date(year, month - 1 + amount, 1, 12)
+      setSelectedMonth(`${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, '0')}`)
+    } else {
+      setAnchorDate(value => toIso(new Date(parseIso(value).getTime() + amount * (range === 'weekly' ? 7 : 1) * 86400000)))
+    }
+  }
+
+  const buckets = useMemo(() => {
+    let definitions = []
+    if (range === 'daily') {
+      const anchor = parseIso(anchorDate)
+      definitions = Array.from({ length: 7 }, (_, index) => {
+        const date = new Date(anchor)
+        date.setDate(date.getDate() - (6 - index))
+        const iso = toIso(date)
+        return { key: iso, start: iso, end: iso, label: dayName(iso), subLabel: String(date.getDate()), tooltip: formatDate(iso) }
+      })
+    } else if (range === 'weekly') {
+      const startOfWeek = mondayOf(parseIso(anchorDate))
+      definitions = Array.from({ length: 7 }, (_, index) => {
+        const date = new Date(startOfWeek)
+        date.setDate(date.getDate() + index)
+        const iso = toIso(date)
+        return { key: iso, start: iso, end: iso, label: dayName(iso), subLabel: String(date.getDate()), tooltip: formatDate(iso) }
+      })
+    } else {
+      const [year, month] = selectedMonth.split('-').map(Number)
+      const firstOfMonth = new Date(year, month - 1, 1, 12)
+      const lastOfMonth = new Date(year, month, 0, 12)
+      const firstMonday = mondayOf(firstOfMonth)
+      let week = 0
+      for (let cursor = new Date(firstMonday); cursor <= lastOfMonth; cursor.setDate(cursor.getDate() + 7)) {
+        const weekStart = new Date(cursor)
+        const weekEnd = new Date(cursor)
+        weekEnd.setDate(weekEnd.getDate() + 6)
+        const visibleStart = weekStart < firstOfMonth ? firstOfMonth : weekStart
+        const visibleEnd = weekEnd > lastOfMonth ? lastOfMonth : weekEnd
+        const startIso = toIso(visibleStart)
+        const endIso = toIso(visibleEnd)
+        week += 1
+        definitions.push({
+          key: `${selectedMonth}-week-${week}`,
+          start: startIso,
+          end: endIso,
+          label: `W${week}`,
+          subLabel: `${visibleStart.getDate()}–${visibleEnd.getDate()}`,
+          tooltip: `${formatDate(startIso)} – ${formatDate(endIso)}`
+        })
+      }
+    }
+    return definitions.map(bucket => {
+      const matching = bookings.filter(item => item.status !== 'Rejected' && item.date >= bucket.start && item.date <= bucket.end && paidAmount(item) > 0)
+      return { ...bucket, value: matching.reduce((sum, item) => sum + paidAmount(item), 0), count: matching.length }
+    })
+  }, [bookings, range, anchorDate, selectedMonth])
+
+  const values = buckets.map(bucket => bucket.value)
+  const rangeTotal = values.reduce((sum, value) => sum + value, 0)
+  const rangePaidBookings = buckets.reduce((sum, bucket) => sum + bucket.count, 0)
   const totalBookings = bookings.filter(item => item.status !== 'Rejected').length
   const average = totalBookings ? bookings.filter(item => item.status !== 'Rejected').reduce((sum, item) => sum + Number(item.amount || 0), 0) / totalBookings : 0
   const peak = Math.max(...values, 0)
-  const peakIndex = values.indexOf(peak)
+  const peakBucket = buckets[values.indexOf(peak)]
+  const axisMax = Math.max(500, Math.ceil(peak / 500) * 500)
+  const axisValues = [axisMax, Math.round(axisMax * .75), Math.round(axisMax * .5), Math.round(axisMax * .25), 0]
+  const formatBarValue = value => value >= 10000 ? `₹${new Intl.NumberFormat('en-IN', { notation: 'compact', maximumFractionDigits: 1 }).format(value)}` : money(value)
+  const weekStart = mondayOf(parseIso(anchorDate))
+  const weekEnd = new Date(weekStart)
+  weekEnd.setDate(weekEnd.getDate() + 6)
+  const selectedLabel = range === 'monthly'
+    ? parseIso(`${selectedMonth}-01`).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' })
+    : range === 'weekly'
+      ? `${formatDate(toIso(weekStart))} – ${formatDate(toIso(weekEnd))}`
+      : `7 days ending ${formatDate(anchorDate)}`
+  const title = range === 'monthly' ? selectedLabel : range === 'weekly' ? `Week of ${formatDate(toIso(weekStart))}` : selectedLabel
+  const prev = () => shiftSelection(-1)
+  const next = () => shiftSelection(1)
+
   return <>
-    <PageHeading eyebrow="BUSINESS PERFORMANCE" title="Revenue overview" description="Track paid bookings, pending amounts and your recent revenue trend." />
-    <div className="stats-grid revenue-stats"><StatCard label="Paid revenue" value={money(paid)} change="Paid demo bookings" icon={Wallet} /><StatCard label="Pending amount" value={money(pending)} change="Awaiting payment" icon={Clock3} tone="amber" /><StatCard label="Bookings" value={totalBookings} change="Excluding rejected requests" icon={CalendarCheck} /><StatCard label="Average booking" value={money(average)} change="Per non-rejected booking" icon={TrendingUp} /></div>
+    <PageHeading eyebrow="BUSINESS PERFORMANCE" title="Revenue overview" description="Explore paid booking trends by day, week or month. Select a specific period to inspect its performance." />
+    <div className="stats-grid revenue-stats">
+      <StatCard label="Paid revenue" value={money(paid)} change="Paid bookings · all time" icon={Wallet} />
+      <StatCard label="Pending amount" value={money(pending)} change="Awaiting payment" icon={Clock3} tone="amber" />
+      <StatCard label="Bookings" value={totalBookings} change="Excluding rejected requests" icon={CalendarCheck} />
+      <StatCard label="Average booking" value={money(average)} change="Per non-rejected booking" icon={TrendingUp} />
+    </div>
     <section className="panel revenue-chart-panel">
-      <div className="revenue-chart-header"><div><span className="eyebrow">REVENUE PERFORMANCE</span><h3>Last 7 days</h3><p>Daily paid booking value across your venue.</p></div><div className="revenue-peak"><small>Highest day</small><strong>{money(peak)}</strong><span><i /> {peak > 0 ? dayName(days[peakIndex]) : 'No paid days yet'}</span></div></div>
-      <div className="revenue-chart-grid" role="img" aria-label="Bar chart of paid revenue for the last seven days">
-        <div className="revenue-grid-lines"><span>{money(max)}</span><span>{money(max * .66)}</span><span>{money(max * .33)}</span><span>₹0</span></div>
-        <div className="revenue-bars">{values.map((value, index) => {
-          const pct = value ? Math.max((value / max) * 100, 5) : 1.5
-          return <div className={`revenue-bar-column ${value ? 'has-revenue' : ''}`} key={days[index]} title={`${formatDate(days[index])}: ${money(value)}`}>
-            <div className="revenue-value-label">{value ? money(value) : '₹0'}</div>
-            <div className="revenue-bar-stage"><span className="revenue-bar-fill" style={{ height: `${pct}%`, animationDelay: `${index * 110}ms` }}><i /></span></div>
-            <strong>{dayName(days[index])}</strong><small>{new Date(`${days[index]}T12:00:00`).getDate()}</small>
+      <div className="revenue-chart-header">
+        <div className="revenue-chart-title-block">
+          <span className="eyebrow">REVENUE PERFORMANCE</span>
+          <h3>{title}</h3>
+          <p>{config.subtitle}</p>
+        </div>
+        <div className="revenue-chart-tools">
+          <div className="revenue-period-tabs" role="tablist" aria-label="Revenue analytics range">
+            {[['daily', '7 days'], ['weekly', 'Week'], ['monthly', 'Month']].map(([key, label]) => <button key={key} type="button" role="tab" aria-selected={range === key} className={range === key ? 'active' : ''} onClick={() => setRange(key)}>{label}</button>)}
           </div>
-        })}</div>
+          <div className="revenue-peak"><small>Highest {range === 'monthly' ? 'week' : 'day'}</small><strong>{money(peak)}</strong><span><i /> {peakBucket ? peakBucket.label : 'No paid periods yet'}</span></div>
+        </div>
       </div>
-      <div className="revenue-chart-footer"><span><i className="revenue-legend-dot" /> Paid bookings</span><span>{money(paid)} total paid revenue</span></div>
+      <div className="revenue-date-toolbar">
+        <div className="revenue-date-caption"><CalendarDays size={16}/><span>{range === 'monthly' ? 'Select month' : range === 'weekly' ? 'Choose any date in the week' : 'Choose the ending date'}</span></div>
+        <div className="revenue-date-picker-control">
+          <button type="button" className="revenue-date-shift" onClick={prev} aria-label="Previous period"><ChevronLeft size={17}/></button>
+          {range === 'monthly'
+            ? <label className="revenue-month-picker"><CalendarDays size={16}/><input aria-label="Choose revenue month" type="month" value={selectedMonth} onChange={event => event.target.value && setSelectedMonth(event.target.value)}/><ChevronDown size={15}/></label>
+            : <div className="revenue-specific-date"><CustomDateField compact value={anchorDate} onChange={setAnchorDate} ariaLabel={range === 'weekly' ? 'Choose a date in the week to analyse' : 'Choose the ending date for daily analysis'}/></div>}
+          <button type="button" className="revenue-date-shift" onClick={next} aria-label="Next period"><ChevronRight size={17}/></button>
+          <button type="button" className="revenue-date-today" onClick={() => { setAnchorDate(today()); setSelectedMonth(today().slice(0, 7)) }}>Today</button>
+        </div>
+        <span className="revenue-selected-range">{selectedLabel}</span>
+      </div>
+      <div className="revenue-range-summary">
+        <span><strong>{money(rangeTotal)}</strong> paid in this range</span>
+        <span>{rangePaidBookings} paid booking{rangePaidBookings === 1 ? '' : 's'}</span>
+      </div>
+      <RevenueLineChart buckets={buckets} axisValues={axisValues} axisMax={axisMax} money={money} formatValue={formatBarValue} period={range} />
+      <div className="revenue-chart-footer"><span><i className="revenue-legend-dot" /> Paid bookings</span><span>{money(rangeTotal)} total · {range === 'monthly' ? 'weekly totals for selected month' : range === 'weekly' ? 'daily totals for selected week' : 'daily totals for selected 7-day window'}</span></div>
     </section>
     <section className="panel table-panel"><div className="panel-heading"><div><h3>Revenue transactions</h3><p>Booking-wise payment summary.</p></div></div><div className="table-scroll"><table className="data-table"><thead><tr><th>BOOKING</th><th>DATE</th><th>CUSTOMER</th><th>BOOKING AMOUNT</th><th>PAYMENT</th></tr></thead><tbody>{bookings.filter(item => item.status !== 'Rejected').sort((a, b) => b.date.localeCompare(a.date)).map(item => <tr key={item.id}><td><strong>{item.id}</strong></td><td>{formatDate(item.date)}</td><td>{item.customer}</td><td><strong>{money(item.amount)}</strong><small>{money(paidAmount(item))} received</small></td><td><Status value={item.payment} /></td></tr>)}</tbody></table></div></section>
   </>
