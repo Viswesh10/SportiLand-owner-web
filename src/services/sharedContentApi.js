@@ -4,7 +4,7 @@ let csrfToken = ''
 async function readResponse(response) {
   const body = await response.json().catch(() => ({}))
   if (!response.ok || body.success === false) {
-    throw new Error(body.message || body.error || `FieldFinder API request failed (${response.status})`)
+    throw new Error(body.message || body.error || `SportiLand API request failed (${response.status})`)
   }
   return body.data ?? body
 }

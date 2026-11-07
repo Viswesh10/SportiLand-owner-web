@@ -1,6 +1,6 @@
-# FieldFinder owner QR scanner frontend
+# SportiLand owner QR scanner frontend
 
-This owner frontend update adds a **Scan booking QR** navigation item. The page uses the browser camera to scan a customer's FieldFinder QR pass, decodes the pass details, and offers a demo-only check-in action. Camera access requires localhost or HTTPS and browser permission. The scanner can also accept pasted JSON for a no-camera preview.
+This owner frontend update adds a **Scan booking QR** navigation item. The page uses the browser camera to scan a customer's SportiLand QR pass, decodes the pass details, and offers a demo-only check-in action. Camera access requires localhost or HTTPS and browser permission. The scanner can also accept pasted JSON for a no-camera preview.
 
 ## Important frontend-only limitation
 

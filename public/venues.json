@@ -10,7 +10,7 @@
       "Cricket",
       "Badminton"
     ],
-    "summary": "An existing FieldFinder listing. Confirm the address, sports offered and operating details before visiting.",
+    "summary": "An existing SportiLand listing. Confirm the address, sports offered and operating details before visiting.",
     "source": "Existing project entry",
     "original": true,
     "verificationStatus": "Needs verification",
@@ -18,8 +18,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/jaypal-sports-center.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -32,7 +32,7 @@
       "Football",
       "Cricket"
     ],
-    "summary": "An existing FieldFinder entry. Public directory details should be cross-checked with the venue.",
+    "summary": "An existing SportiLand entry. Public directory details should be cross-checked with the venue.",
     "source": "Existing project entry",
     "original": true,
     "verificationStatus": "Needs verification",
@@ -40,8 +40,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/hatrick-sports-arena.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -54,15 +54,15 @@
       "Football",
       "Cricket"
     ],
-    "summary": "An existing FieldFinder entry. No live slots, rates or venue confirmation are available in this demo.",
+    "summary": "An existing SportiLand entry. No live slots, rates or venue confirmation are available in this demo.",
     "source": "Existing project entry",
     "original": true,
     "verificationStatus": "Needs verification",
     "bookingStatus": "Directory listing only",
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/bats-and-boots-turf.webp",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoKind": "venue-specific",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
@@ -83,8 +83,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/golazo-turf.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -97,15 +97,15 @@
       "Football",
       "Cricket"
     ],
-    "summary": "A turf listing to verify. Address, rates and availability have not been confirmed by FieldFinder.",
+    "summary": "A turf listing to verify. Address, rates and availability have not been confirmed by SportiLand.",
     "source": "Public directory lead",
     "verificationStatus": "Needs verification",
     "bookingStatus": "Directory listing only",
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/bounze-turf.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -173,8 +173,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/jp-multisports-arena.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -194,8 +194,8 @@
     "bookingStatus": "Directory listing only",
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/day-night-sports-hub.webp",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoKind": "venue-specific",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
@@ -215,8 +215,8 @@
     "bookingStatus": "Directory listing only",
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/y2-turf.webp",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoKind": "venue-specific",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
@@ -237,8 +237,8 @@
     "bookingStatus": "Directory listing only",
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/sr-arena-sports-complex.webp",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoKind": "venue-specific",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
@@ -259,8 +259,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/turf-xl.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -326,8 +326,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/sathiyan-multisport-sport-club.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -347,8 +347,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/t2turf-green-lands.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -368,8 +368,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/sopas-goal-turf.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -413,8 +413,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/ms-sports-hub.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -456,8 +456,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/hattrick-wizard-tower.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -470,15 +470,15 @@
       "Football",
       "Cricket"
     ],
-    "summary": "A turf listing around Kamarajar Salai. No live availability or pricing is connected to FieldFinder.",
+    "summary": "A turf listing around Kamarajar Salai. No live availability or pricing is connected to SportiLand.",
     "source": "Public directory lead",
     "verificationStatus": "Needs verification",
     "bookingStatus": "Directory listing only",
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/sivan-sports-turf.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -499,8 +499,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/annai-bharath-sports-academy.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -543,8 +543,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/lords-sports.jpg",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/multisport.svg"
   },
   {
@@ -607,8 +607,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/sai-academy-of-badminton.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/badminton.svg"
   },
   {
@@ -648,8 +648,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/muthus-badminton-fitness-club.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/badminton.svg"
   },
   {
@@ -668,8 +668,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/peace-shuttlers.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/badminton.svg"
   },
   {
@@ -688,8 +688,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/narens-arena-badminton-court.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/badminton.svg"
   },
   {
@@ -708,8 +708,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/av-shutte-park-ellis-badminton-club.webp",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/badminton.svg"
   },
   {
@@ -728,8 +728,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/cricket-box.jpg",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/cricket.svg"
   },
   {
@@ -798,8 +798,8 @@
     "bookingEnabled": true,
     "photoUrl": "/assets/venues/maanthoppu-ground.jpg",
     "photoKind": "venue-specific",
-    "photoSourceName": "Photo supplied for FieldFinder",
-    "photoSourceNote": "Venue photograph supplied by the FieldFinder project owner.",
+    "photoSourceName": "Photo supplied for SportiLand",
+    "photoSourceNote": "Venue photograph supplied by the SportiLand project owner.",
     "photoIllustration": "assets/venue-illustrations/stadium.svg"
   }
 ]
